@@ -1,0 +1,32 @@
+import api from './axiosInstance.service';
+import Cookies from 'js-cookie';
+
+const userId = Cookies.get('userId');
+
+export const submitBasicDetails = async (details) => {
+    const res = await api.post('/api/basic-details', details);
+    return res.data;
+  };
+  
+  // READ: Get all basic details or by userId
+  export const getAllBasicDetails = async () => {
+    const res = await api.get(`/api/basic-details`);
+    return res.data;
+  };
+  
+  export const getBasicDetails = async (id) => {
+    const res = await api.get(`/api/basic-details/${id}`);
+    return res.data;
+  };
+  
+  // UPDATE: Update basic details by userId
+  export const updateBasicDetails = async (updatedDetails) => {
+    const res = await api.put(`/api/basic-details/${userId}`, updatedDetails);
+    return res.data;
+  };
+  
+  // DELETE: Delete basic details by userId
+  export const deleteBasicDetails = async () => {
+    const res = await api.delete(`/api/basic-details/${userId}`);
+    return res.data;
+  };
