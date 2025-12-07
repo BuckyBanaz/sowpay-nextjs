@@ -137,13 +137,30 @@ const SignUp = () => {
     }
   };
 
+  // Block admin registration
+  if (auth === "admin") {
+    return (
+      <div className="px-4">
+        <ToastContainer />
+        <h2 className="mt-6 text-2xl font-semibold text-red-600 !leading-130">Admin registration is not allowed from here.</h2>
+        <AgreementConfirm />
+        <Link
+          href={`/sign-in?auth=admin`}
+          className="transparent-green-border-button mb-5"
+        >
+          Go to Admin Sign In
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="px-4">
       <ToastContainer />
       {!showOtpInput && (<h2 className="mt-6 text-2xl font-semibold text-black !leading-130">Sign Up</h2>)}
-
       {!showOtpInput && (
         <form className="mt-8" onSubmit={handleSubmit}>
+          {/* ...existing code... */}
           <CustomInput
             placeholder="Name"
             name="name"
@@ -198,14 +215,10 @@ const SignUp = () => {
             placeholder="Referral Code(Optional)"
             name="referralCode"
             type="text"
-            // error={!formDetails.referralCode && error}
-            // errorText="Referral Code is required"
             value={formDetails.referralCode}
             onChange={(e) => setFormDetails({ ...formDetails, referralCode: e.target.value })}
           />}
-
           {authError && <p className="text-red-500 mt-2">{authError}</p>}
-
           <CustomButton
             customClass="w-full !py-3.5 mt-7"
             isSubmit
@@ -215,7 +228,6 @@ const SignUp = () => {
           </CustomButton>
         </form>
       )}
-
       {showOtpInput && (
         <div className="mt-6">
           <h3 className="text-lg font-semibold mb-2">Enter OTP</h3>
@@ -235,11 +247,7 @@ const SignUp = () => {
           </CustomButton>
         </div>
       )}
-
-      {/* <OptionWay /> */}
-      {/* <LoginWay /> */}
       <AgreementConfirm />
-
       <Link
         href={`/sign-in?auth=${auth}`}
         className="transparent-green-border-button mb-5"
